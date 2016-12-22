@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{E0363F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpringTest.Domain", "SpringTest.Domain\SpringTest.Domain.csproj", "{34503D94-2D25-4E1E-8DC0-393333F2B80F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpringTest.Core", "SpringTest.Core\SpringTest.Core.csproj", "{0EEADB88-981C-4102-8442-16F611BDFF0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EEADB88-981C-4102-8442-16F611BDFF0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEADB88-981C-4102-8442-16F611BDFF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEADB88-981C-4102-8442-16F611BDFF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEADB88-981C-4102-8442-16F611BDFF0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,5 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D73FEA72-B01D-4F12-A1C0-F2B2BF8FB12A} = {1FFCB4E4-D3FA-4641-85DA-C0C4BBA5BD84}
 		{34503D94-2D25-4E1E-8DC0-393333F2B80F} = {E0363FF0-704F-4B0A-9417-BF7F3DDEB653}
+		{0EEADB88-981C-4102-8442-16F611BDFF0D} = {F3E3F0B4-9972-49F9-9C7D-04F722965603}
 	EndGlobalSection
 EndGlobal
