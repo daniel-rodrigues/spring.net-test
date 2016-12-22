@@ -6,8 +6,8 @@ using SpringTest.Core.EntityMapConfiguration;
 using SpringTest.Domain.Entities;
 
 namespace SpringTest.Core.EfContext {
-	public class EfContext : DbContext {
-		public EfContext() : base("SpringTestConnection") {
+	public class EfDbContext : DbContext {
+		public EfDbContext() : base("SpringTestConnection") {
 			Configuration.LazyLoadingEnabled = false;
 			Configuration.ProxyCreationEnabled = true;
 		}

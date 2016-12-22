@@ -49,10 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EfContext\EfContext.cs" />
+    <Compile Include="EfContext\EfDbContext.cs" />
     <Compile Include="EntityMapConfiguration\CategoryConfiguration.cs" />
     <Compile Include="EntityMapConfiguration\ProductConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpringTest.Domain\SpringTest.Domain.csproj">
