@@ -5,6 +5,14 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpringTest.Web", "SpringTest.Web\SpringTest.Web.csproj", "{D73FEA72-B01D-4F12-A1C0-F2B2BF8FB12A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{1FFCB4E4-D3FA-4641-85DA-C0C4BBA5BD84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F3E3F0B4-9972-49F9-9C7D-04F722965603}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{E0363FF0-704F-4B0A-9417-BF7F3DDEB653}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpringTest.Domain", "SpringTest.Domain\SpringTest.Domain.csproj", "{34503D94-2D25-4E1E-8DC0-393333F2B80F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +23,16 @@ Global
 		{D73FEA72-B01D-4F12-A1C0-F2B2BF8FB12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D73FEA72-B01D-4F12-A1C0-F2B2BF8FB12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D73FEA72-B01D-4F12-A1C0-F2B2BF8FB12A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34503D94-2D25-4E1E-8DC0-393333F2B80F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D73FEA72-B01D-4F12-A1C0-F2B2BF8FB12A} = {1FFCB4E4-D3FA-4641-85DA-C0C4BBA5BD84}
+		{34503D94-2D25-4E1E-8DC0-393333F2B80F} = {E0363FF0-704F-4B0A-9417-BF7F3DDEB653}
 	EndGlobalSection
 EndGlobal
