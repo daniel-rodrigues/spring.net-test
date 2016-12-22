@@ -50,9 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EfContext\EfContext.cs" />
+    <Compile Include="EntityMapConfiguration\CategoryConfiguration.cs" />
+    <Compile Include="EntityMapConfiguration\ProductConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SpringTest.Domain\SpringTest.Domain.csproj">
+      <Project>{34503d94-2d25-4e1e-8dc0-393333f2b80f}</Project>
+      <Name>SpringTest.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
