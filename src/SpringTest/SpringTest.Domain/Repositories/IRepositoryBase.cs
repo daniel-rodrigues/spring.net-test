@@ -13,5 +13,6 @@ namespace SpringTest.Domain.Repositories {
 		TEntity Get(Expression<Func<TEntity, bool>> where, string includes = "");
 		IEnumerable<TEntity> GetAll(string includes = "");
 		IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where, string includes = "");
+		void Commit();
 	}
 }
