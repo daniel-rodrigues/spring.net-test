@@ -56,6 +56,8 @@
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpringTest.Domain\SpringTest.Domain.csproj">
@@ -67,9 +69,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
