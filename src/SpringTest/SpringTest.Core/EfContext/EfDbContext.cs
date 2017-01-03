@@ -28,7 +28,7 @@ namespace SpringTest.Core.EfContext {
 
 			modelBuilder.Entity<Category>()
 				.HasKey(x => x.Id)
-				.HasKey(x => x.Products);
+				.HasMany(x => x.Products);
 
 			modelBuilder.Entity<Product>()
 				.HasRequired(x => x.Category)
