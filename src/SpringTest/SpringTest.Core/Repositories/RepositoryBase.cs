@@ -20,7 +20,7 @@ namespace SpringTest.Core.Repositories {
 		private DbSet<TEntity> Entity { get { return Context.Set<TEntity>(); } }
 
 		public void Add(TEntity entity) {
-			entity.CreatedAt = DateTime.Now;
+			entity.CreatedAt = DateTime.Now;	
 			Entity.Add(entity);
 		}
 			

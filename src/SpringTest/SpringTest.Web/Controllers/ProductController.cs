@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using SpringTest.Core.EfContext;
 using SpringTest.Core.Repositories;
@@ -8,16 +9,23 @@ using SpringTest.Domain.Repositories;
 using SpringTest.Domain.Services;
 
 namespace SpringTest.Web.Controllers {
-	public class CategoryController : Controller {
+	public class ProductController : Controller {
 
+		private IProductRepository _productRepository;
+		private IProductService _productService;
 		private ICategoryRepository _categoryRepository;
 		private ICategoryService _categoryService;
-		public CategoryController() {
-			_categoryRepository = new CategoryRepository(new EfDbContext());
+		private EfDbContext _context;
+
+		public ProductController() {
+			_context = new EfDbContext();
+			_productRepository = new ProductRepository(_context);
+			_productService = new ProductService(_productRepository);
+			_categoryRepository = new CategoryRepository(_context);
 			_categoryService = new CategoryService(_categoryRepository);
 		}
 		public ActionResult Index() {
-			var model = _categoryService.GetAll();
+			var model = _productService.GetAll(includes: "Category");
 			return View(model);
 		}
 
@@ -25,27 +33,29 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var model = _categoryService.Get(c => c.Id == id);
+			var model = _productService.Get(c => c.Id == id);
 			return View(model);
 		}
 
 		public ActionResult Create() {
+			ViewBag.CategoryId = _categoryService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });			
 			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(Category model) {
+		public ActionResult Create(Product model) {
 			try {
 				if (ModelState.IsValid) {
-					_categoryService.Add(model);
-					_categoryService.Commit();
+					_productService.Add(model);
+					_productService.Commit();
 					return RedirectToAction("Index");
 				}
 			} catch {
 				return View();
 			}
-
+			
+			ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name");
 			return View(model);
 		}
 
@@ -53,22 +63,26 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var model = _categoryService.Get(c => c.Id == id);
+			var model = _productService.Get(c => c.Id == id);
+			ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name", model.CategoryId);
+
 			return View(model);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, Category model) {
+		public ActionResult Edit(int id, Product model) {
 			try {
 				if (ModelState.IsValid) {
-					_categoryService.Update(model);
-					_categoryService.Commit();
+					_productService.Update(model);
+					_productService.Commit();
 					return RedirectToAction("Index");
 				}
 			} catch {
 				return View();
 			}
+
+			ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name", model.CategoryId);
 			return View(model);
 		}
 
@@ -81,10 +95,10 @@ namespace SpringTest.Web.Controllers {
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, Category model) {
+		public ActionResult Delete(int id, Product model) {
 			try {
-				_categoryService.Delete(id);
-				_categoryService.Commit();
+				_productService.Delete(id);
+				_productService.Commit();
 				return RedirectToAction("Index");
 			} catch {
 				return View();

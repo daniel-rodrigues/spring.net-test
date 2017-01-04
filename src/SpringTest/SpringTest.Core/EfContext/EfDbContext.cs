@@ -23,6 +23,9 @@ namespace SpringTest.Core.EfContext {
 			modelBuilder.Properties<string>()
 					.Configure(p => p.HasColumnType("varchar"));
 
+			modelBuilder.Properties<DateTime>()
+				.Configure(p => p.HasColumnType("datetime2"));
+
 			modelBuilder.Properties<string>()
 					.Configure(p => p.HasMaxLength(50));
 
@@ -37,21 +40,6 @@ namespace SpringTest.Core.EfContext {
 
 			modelBuilder.Configurations.Add(new CategoryConfiguration());
 			modelBuilder.Configurations.Add(new ProductConfiguration());
-		}
-
-		public override int SaveChanges() {
-
-			foreach (var entry in ChangeTracker.Entries().Where(el => el.Entity.GetType().GetProperty("CreatedAt") != null)) {
-				if (entry.State == EntityState.Added)
-					entry.Property("CreatedAt").CurrentValue = DateTime.Now;
-
-				if (entry.State == EntityState.Modified) {
-					entry.Property("UpdatedAt").CurrentValue = DateTime.Now;
-					entry.Property("UpdatedAt").IsModified = false;
-				}
-			}
-
-			return base.SaveChanges();
-		}
+		}		
 	}
 }

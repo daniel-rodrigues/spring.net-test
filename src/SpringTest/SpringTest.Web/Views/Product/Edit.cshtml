@@ -1,0 +1,17 @@
+﻿@model SpringTest.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_formProduct")
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
