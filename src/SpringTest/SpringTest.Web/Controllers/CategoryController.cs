@@ -1,23 +1,18 @@
 ﻿using System.Net;
 using System.Web.Mvc;
-using SpringTest.Core.EfContext;
-using SpringTest.Core.Repositories;
-using SpringTest.Core.Services;
 using SpringTest.Domain.Entities;
-using SpringTest.Domain.Repositories;
 using SpringTest.Domain.Services;
 
 namespace SpringTest.Web.Controllers {
 	public class CategoryController : Controller {
+				
+		private readonly ICategoryService categoryService;
 
-		private ICategoryRepository _categoryRepository;
-		private ICategoryService _categoryService;
-		public CategoryController() {
-			_categoryRepository = new CategoryRepository(new EfDbContext());
-			_categoryService = new CategoryService(_categoryRepository);
+		public CategoryController(ICategoryService categoryService) {			
+			this.categoryService = categoryService;
 		}
 		public ActionResult Index() {
-			var model = _categoryService.GetAll();
+			var model = categoryService.GetAll();
 			return View(model);
 		}
 
@@ -25,7 +20,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var model = _categoryService.Get(c => c.Id == id);
+			var model = categoryService.Get(c => c.Id == id);
 			return View(model);
 		}
 
@@ -38,8 +33,8 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Create(Category model) {
 			try {
 				if (ModelState.IsValid) {
-					_categoryService.Add(model);
-					_categoryService.Commit();
+					categoryService.Add(model);
+					categoryService.Commit();
 					return RedirectToAction("Index");
 				}
 			} catch {
@@ -53,7 +48,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var model = _categoryService.Get(c => c.Id == id);
+			var model = categoryService.Get(c => c.Id == id);
 			return View(model);
 		}
 
@@ -62,8 +57,8 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Edit(int id, Category model) {
 			try {
 				if (ModelState.IsValid) {
-					_categoryService.Update(model);
-					_categoryService.Commit();
+					categoryService.Update(model);
+					categoryService.Commit();
 					return RedirectToAction("Index");
 				}
 			} catch {
@@ -83,8 +78,8 @@ namespace SpringTest.Web.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Delete(int id, Category model) {
 			try {
-				_categoryService.Delete(id);
-				_categoryService.Commit();
+				categoryService.Delete(id);
+				categoryService.Commit();
 				return RedirectToAction("Index");
 			} catch {
 				return View();

@@ -7,46 +7,46 @@ using SpringTest.Domain.Services;
 
 namespace SpringTest.Core.Services {
 	public class CategoryService : ICategoryService {
-		private readonly ICategoryRepository _categoryRepository;
+		private readonly ICategoryRepository categoryRepository;
 
 		public CategoryService(ICategoryRepository categoryRepository) {
-			_categoryRepository = categoryRepository;
+			this.categoryRepository = categoryRepository;
 		}
 
 		public void Add(Category category) {
-			_categoryRepository.Add(category);
+			categoryRepository.Add(category);
 		}
 
 		public void AddOrUpdate(Category category) {
-			_categoryRepository.AddOrUpdate(category);
+			categoryRepository.AddOrUpdate(category);
 		}
 
 		public void Delete(Expression<Func<Category, bool>> where) {
-			_categoryRepository.Delete(where);
+			categoryRepository.Delete(where);
 		}
 
 		public void Delete(int id) {
-			_categoryRepository.Delete(id);
+			categoryRepository.Delete(id);
 		}
 
 		public Category Get(Expression<Func<Category, bool>> where, string includes = "") {
-			return _categoryRepository.Get(where, includes);
+			return categoryRepository.Get(where, includes);
 		}
 
 		public IEnumerable<Category> GetAll(string includes = "") {
-			return _categoryRepository.GetAll(includes);
+			return categoryRepository.GetAll(includes);
 		}
 
 		public IEnumerable<Category> GetMany(Expression<Func<Category, bool>> where, string includes = "") {
-			return _categoryRepository.GetMany(where, includes);
+			return categoryRepository.GetMany(where, includes);
 		}
 
 		public void Update(Category category) {
-			_categoryRepository.Update(category);
+			categoryRepository.Update(category);
 		}
 
 		public void Commit() {
-			_categoryRepository.Commit();
+			categoryRepository.Commit();
 		}
 	}
 }

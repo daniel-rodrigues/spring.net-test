@@ -7,46 +7,46 @@ using SpringTest.Domain.Services;
 
 namespace SpringTest.Core.Services {
 	public class ProductService : IProductService{
-		private readonly IProductRepository _productRepository;
+		private readonly IProductRepository productRepository;
 
 		public ProductService(IProductRepository productRepository) {
-			_productRepository = productRepository;
+			this.productRepository = productRepository;
 		}
 
 		public void Add(Product product) {
-			_productRepository.Add(product);
+			productRepository.Add(product);
 		}
 
 		public void AddOrUpdate(Product product) {
-			_productRepository.AddOrUpdate(product);
+			productRepository.AddOrUpdate(product);
 		}
 
 		public void Commit() {
-			_productRepository.Commit();
+			productRepository.Commit();
 		}
 
 		public void Delete(Expression<Func<Product, bool>> where) {
-			_productRepository.Delete(where);
+			productRepository.Delete(where);
 		}
 
 		public void Delete(int id) {
-			_productRepository.Delete(id);
+			productRepository.Delete(id);
 		}
 
 		public Product Get(Expression<Func<Product, bool>> where, string includes = "") {
-			return _productRepository.Get(where, includes);
+			return productRepository.Get(where, includes);
 		}
 
 		public IEnumerable<Product> GetAll(string includes = "") {
-			return _productRepository.GetAll(includes);
+			return productRepository.GetAll(includes);
 		}
 
 		public IEnumerable<Product> GetMany(Expression<Func<Product, bool>> where, string includes = "") {
-			return _productRepository.GetMany(where, includes);
+			return productRepository.GetMany(where, includes);
 		}
 
 		public void Update(Product product) {
-			_productRepository.Update(product);
+			productRepository.Update(product);
 		}
 	}
 }

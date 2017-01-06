@@ -11,13 +11,17 @@ using SpringTest.Core.EfContext;
 namespace SpringTest.Core.Repositories {
 	public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : EntityBase {
 
-		protected readonly EfDbContext Context;
+		protected readonly EfDbContext efContext;
 
-		public RepositoryBase(EfDbContext context) {
-			Context = context;
+		public RepositoryBase(EfDbContext efContext) {
+			this.efContext = efContext;
 		}
 
-		private DbSet<TEntity> Entity { get { return Context.Set<TEntity>(); } }
+		public RepositoryBase() {
+			this.efContext = new EfDbContext();
+		} 
+
+		private DbSet<TEntity> Entity { get { return efContext.Set<TEntity>(); } }
 
 		public void Add(TEntity entity) {
 			entity.CreatedAt = DateTime.Now;	
@@ -26,7 +30,7 @@ namespace SpringTest.Core.Repositories {
 			
 		public void Update(TEntity entity) {
 			entity.UpdateAt = DateTime.Now;
-			Context.Entry(entity).State = EntityState.Modified;
+			efContext.Entry(entity).State = EntityState.Modified;
 		}
 
 		public void AddOrUpdate(TEntity entity) {
@@ -36,40 +40,40 @@ namespace SpringTest.Core.Repositories {
 				Add(entity);
 		}
 		public void Delete(int id) {
-			Context.Set<TEntity>().Remove(Context.Set<TEntity>().Find(id));
+			efContext.Set<TEntity>().Remove(efContext.Set<TEntity>().Find(id));
 		}
 
 		public void Delete(Expression<Func<TEntity, bool>> where) {
-			var objects = Context.Set<TEntity>().Where(where).AsEnumerable();
+			var objects = efContext.Set<TEntity>().Where(where).AsEnumerable();
 
 			foreach (var obj in objects)
-				Context.Set<TEntity>().Remove(obj);
+				efContext.Set<TEntity>().Remove(obj);
 		}
 
 		public TEntity Get(Expression<Func<TEntity, bool>> where, string includes = "") {
 			if (string.IsNullOrEmpty(includes))
-				return Context.Set<TEntity>().FirstOrDefault(where);
+				return efContext.Set<TEntity>().FirstOrDefault(where);
 
-			return Context.Set<TEntity>().Include(includes).FirstOrDefault(where);
+			return efContext.Set<TEntity>().Include(includes).FirstOrDefault(where);
 		}
 
 		public IEnumerable<TEntity> GetAll(string includes = "") {
 			if (string.IsNullOrEmpty(includes))
-				return Context.Set<TEntity>().ToList();
+				return efContext.Set<TEntity>().ToList();
 
-			return Context.Set<TEntity>().Include(includes).ToList();
+			return efContext.Set<TEntity>().Include(includes).ToList();
 		}
 
 		public IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where, string includes = "") {
 			if (string.IsNullOrEmpty(includes))
-				return Context.Set<TEntity>().Where(where).ToList();
+				return efContext.Set<TEntity>().Where(where).ToList();
 
-			return Context.Set<TEntity>().Include(includes).Where(where).ToList();
+			return efContext.Set<TEntity>().Include(includes).Where(where).ToList();
 		}
 
 		public void Commit() {
 			try {
-				Context.SaveChanges();
+				efContext.SaveChanges();
 			} catch (DbEntityValidationException e) {
 				foreach (var eve in e.EntityValidationErrors) {
 					Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",

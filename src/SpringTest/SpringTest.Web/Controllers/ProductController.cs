@@ -1,31 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using SpringTest.Core.EfContext;
-using SpringTest.Core.Repositories;
-using SpringTest.Core.Services;
 using SpringTest.Domain.Entities;
-using SpringTest.Domain.Repositories;
 using SpringTest.Domain.Services;
 
 namespace SpringTest.Web.Controllers {
 	public class ProductController : Controller {
+		
+		private readonly IProductService productService;		
+		private readonly ICategoryService categoryService;		
 
-		private IProductRepository _productRepository;
-		private IProductService _productService;
-		private ICategoryRepository _categoryRepository;
-		private ICategoryService _categoryService;
-		private EfDbContext _context;
-
-		public ProductController() {
-			_context = new EfDbContext();
-			_productRepository = new ProductRepository(_context);
-			_productService = new ProductService(_productRepository);
-			_categoryRepository = new CategoryRepository(_context);
-			_categoryService = new CategoryService(_categoryRepository);
+		public ProductController(IProductService productService, ICategoryService categoryService) {
+			this.productService = productService;
+			this.categoryService = categoryService;
 		}
 		public ActionResult Index() {
-			var model = _productService.GetAll(includes: "Category");
+			var model = productService.GetAll(includes: "Category");
 			return View(model);
 		}
 
@@ -33,12 +24,12 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var model = _productService.Get(c => c.Id == id);
+			var model = productService.Get(c => c.Id == id);
 			return View(model);
 		}
 
 		public ActionResult Create() {
-			ViewBag.CategoryId = _categoryService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });			
+			ViewBag.CategoryId = categoryService.GetAll().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });			
 			return View();
 		}
 
@@ -47,15 +38,15 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Create(Product model) {
 			try {
 				if (ModelState.IsValid) {
-					_productService.Add(model);
-					_productService.Commit();
+					productService.Add(model);
+					productService.Commit();
 					return RedirectToAction("Index");
 				}
 			} catch {
 				return View();
 			}
 			
-			ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name");
+			ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Name");
 			return View(model);
 		}
 
@@ -63,8 +54,8 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var model = _productService.Get(c => c.Id == id);
-			ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name", model.CategoryId);
+			var model = productService.Get(c => c.Id == id);
+			ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Name", model.CategoryId);
 
 			return View(model);
 		}
@@ -74,15 +65,15 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Edit(int id, Product model) {
 			try {
 				if (ModelState.IsValid) {
-					_productService.Update(model);
-					_productService.Commit();
+					productService.Update(model);
+					productService.Commit();
 					return RedirectToAction("Index");
 				}
 			} catch {
 				return View();
 			}
 
-			ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name", model.CategoryId);
+			ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Name", model.CategoryId);
 			return View(model);
 		}
 
@@ -97,8 +88,8 @@ namespace SpringTest.Web.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Delete(int id, Product model) {
 			try {
-				_productService.Delete(id);
-				_productService.Commit();
+				productService.Delete(id);
+				productService.Commit();
 				return RedirectToAction("Index");
 			} catch {
 				return View();

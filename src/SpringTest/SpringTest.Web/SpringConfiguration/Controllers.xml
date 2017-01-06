@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/xsd/spring-objects.xsd">
+
+  <object id="CategoryController" type="SpringTest.Web.Controllers.CategoryController, SpringTest.Web" singleton="false" >
+    <constructor-arg ref="categoryService"/>
+  </object>
+  <object id="ProductController" type="SpringTest.Web.Controllers.ProductController, SpringTest.Web" singleton="false" >
+    <constructor-arg ref="categoryService"/>
+    <constructor-arg ref="productService"/>
+  </object>
+  <object id="productService" type="SpringTest.Core.Services.ProductService, SpringTest.Core"/>
+  <object id="categoryService" type="SpringTest.Core.Services.CategoryService, SpringTest.Core"/>
+
+</objects>
