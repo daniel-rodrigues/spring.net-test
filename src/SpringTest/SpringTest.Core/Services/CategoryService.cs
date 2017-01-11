@@ -15,18 +15,22 @@ namespace SpringTest.Core.Services {
 
 		public void Add(Category category) {
 			categoryRepository.Add(category);
+			categoryRepository.Commit();
 		}
 
 		public void AddOrUpdate(Category category) {
 			categoryRepository.AddOrUpdate(category);
+			categoryRepository.Commit();
 		}
 
 		public void Delete(Expression<Func<Category, bool>> where) {
 			categoryRepository.Delete(where);
+			categoryRepository.Commit();
 		}
 
 		public void Delete(int id) {
 			categoryRepository.Delete(id);
+			categoryRepository.Commit();
 		}
 
 		public Category Get(Expression<Func<Category, bool>> where, string includes = "") {
@@ -43,10 +47,7 @@ namespace SpringTest.Core.Services {
 
 		public void Update(Category category) {
 			categoryRepository.Update(category);
-		}
-
-		public void Commit() {
 			categoryRepository.Commit();
-		}
+		}		
 	}
 }

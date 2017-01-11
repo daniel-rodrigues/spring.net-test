@@ -1,5 +1,4 @@
-﻿@model SpringTest.Domain.Entities.Product
-
+﻿@model SpringTest.Web.Models.ProductViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -23,7 +22,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UpdateAt)
+            @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
 
         <dt>

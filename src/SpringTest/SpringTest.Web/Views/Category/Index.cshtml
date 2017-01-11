@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SpringTest.Domain.Entities.Category>
+﻿@model IEnumerable<SpringTest.Web.Models.CategoryViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.CreatedAt)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdateAt)
+            @Html.DisplayNameFor(model => model.UpdatedAt)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -32,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UpdateAt)
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)

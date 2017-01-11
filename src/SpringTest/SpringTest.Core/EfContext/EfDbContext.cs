@@ -9,7 +9,7 @@ namespace SpringTest.Core.EfContext {
 	public class EfDbContext : DbContext {
 		public EfDbContext() : base("SpringTestConnection") {
 			Configuration.LazyLoadingEnabled = false;
-			Configuration.ProxyCreationEnabled = true;
+			Configuration.ProxyCreationEnabled = false;
 		}
 
 		public DbSet<Category> Categories { get; set; }

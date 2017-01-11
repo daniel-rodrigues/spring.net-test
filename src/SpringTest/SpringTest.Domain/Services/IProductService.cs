@@ -12,7 +12,6 @@ namespace SpringTest.Domain.Services {
 		void Delete(Expression<Func<Product, bool>> where);
 		Product Get(Expression<Func<Product, bool>> where, string includes = "");
 		IEnumerable<Product> GetAll(string includes = "");
-		IEnumerable<Product> GetMany(Expression<Func<Product, bool>> where, string includes = "");
-		void Commit();
+		IEnumerable<Product> GetMany(Expression<Func<Product, bool>> where, string includes = "");		
 	}
 }

@@ -15,21 +15,16 @@ namespace SpringTest.Core.Repositories {
 
 		public RepositoryBase(EfDbContext efContext) {
 			this.efContext = efContext;
-		}
-
-		public RepositoryBase() {
-			this.efContext = new EfDbContext();
-		} 
-
-		private DbSet<TEntity> Entity { get { return efContext.Set<TEntity>(); } }
+		}		
 
 		public void Add(TEntity entity) {
-			entity.CreatedAt = DateTime.Now;	
-			Entity.Add(entity);
+			entity.CreatedAt = DateTime.Now;
+			efContext.Set<TEntity>().Add(entity);
 		}
-			
+
 		public void Update(TEntity entity) {
-			entity.UpdateAt = DateTime.Now;
+			entity.UpdatedAt = DateTime.Now;
+			efContext.Set<TEntity>().Attach(entity);
 			efContext.Entry(entity).State = EntityState.Modified;
 		}
 
@@ -52,16 +47,16 @@ namespace SpringTest.Core.Repositories {
 
 		public TEntity Get(Expression<Func<TEntity, bool>> where, string includes = "") {
 			if (string.IsNullOrEmpty(includes))
-				return efContext.Set<TEntity>().FirstOrDefault(where);
+				return efContext.Set<TEntity>().AsNoTracking().FirstOrDefault(where);
 
-			return efContext.Set<TEntity>().Include(includes).FirstOrDefault(where);
+			return efContext.Set<TEntity>().AsNoTracking().Include(includes).FirstOrDefault(where);
 		}
 
 		public IEnumerable<TEntity> GetAll(string includes = "") {
 			if (string.IsNullOrEmpty(includes))
-				return efContext.Set<TEntity>().ToList();
+				return efContext.Set<TEntity>().AsNoTracking().ToList();
 
-			return efContext.Set<TEntity>().Include(includes).ToList();
+			return efContext.Set<TEntity>().AsNoTracking().Include(includes).ToList();
 		}
 
 		public IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where, string includes = "") {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SpringTest.Domain.Entities.Product>
+﻿@model IEnumerable<SpringTest.Web.Models.ProductViewModel>
 
 @{
     ViewBag.Title = "Produtos";
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UpdateAt)
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)

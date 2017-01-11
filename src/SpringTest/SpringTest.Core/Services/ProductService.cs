@@ -15,22 +15,22 @@ namespace SpringTest.Core.Services {
 
 		public void Add(Product product) {
 			productRepository.Add(product);
+			productRepository.Commit();
 		}
 
 		public void AddOrUpdate(Product product) {
 			productRepository.AddOrUpdate(product);
-		}
-
-		public void Commit() {
 			productRepository.Commit();
 		}
-
+				
 		public void Delete(Expression<Func<Product, bool>> where) {
 			productRepository.Delete(where);
+			productRepository.Commit();
 		}
 
 		public void Delete(int id) {
 			productRepository.Delete(id);
+			productRepository.Commit();
 		}
 
 		public Product Get(Expression<Func<Product, bool>> where, string includes = "") {
@@ -47,6 +47,7 @@ namespace SpringTest.Core.Services {
 
 		public void Update(Product product) {
 			productRepository.Update(product);
+			productRepository.Commit();
 		}
 	}
 }

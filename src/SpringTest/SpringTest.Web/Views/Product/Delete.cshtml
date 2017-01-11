@@ -1,4 +1,4 @@
-﻿@model SpringTest.Domain.Entities.Product
+﻿@model SpringTest.Web.Models.ProductViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -24,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UpdateAt)
+            @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
 
         <dt>

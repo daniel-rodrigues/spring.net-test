@@ -1,4 +1,4 @@
-﻿@model SpringTest.Domain.Entities.Product
+﻿@model SpringTest.Web.Models.ProductViewModel
 
 <div class="form-horizontal">
     <h4>Produto</h4>
@@ -32,7 +32,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.CategoryId, labelText: "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as IEnumerable<SelectListItem>, string.Empty, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as IEnumerable<SelectListItem>, string.Empty, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
         </div>
     </div>

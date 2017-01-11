@@ -7,9 +7,6 @@ namespace SpringTest.Core.Repositories {
 		
 		public ProductRepository(EfDbContext efContext)
             : base(efContext)
-        { }
-		public ProductRepository() {
-
-		}
+        { }		
 	}
 }
