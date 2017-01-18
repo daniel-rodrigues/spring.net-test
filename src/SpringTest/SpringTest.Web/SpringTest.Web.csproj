@@ -202,6 +202,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Extensions\MapperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -248,10 +249,6 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SpringTest.Core\SpringTest.Core.csproj">
-      <Project>{0eeadb88-981c-4102-8442-16f611bdff0d}</Project>
-      <Name>SpringTest.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SpringTest.Domain\SpringTest.Domain.csproj">
       <Project>{34503d94-2d25-4e1e-8dc0-393333f2b80f}</Project>
       <Name>SpringTest.Domain</Name>

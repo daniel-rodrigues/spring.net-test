@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel;
 
 namespace SpringTest.Web.Models {
 	public abstract class BaseViewModel {
 		public int Id { get; set; }
+
+		[DisplayName("Data de Cadastro")]
 		public DateTime CreatedAt { get; set; }
+
+		[DisplayName("Data de Alteração")]
 		public DateTime? UpdatedAt { get; set; }
 	}
 }

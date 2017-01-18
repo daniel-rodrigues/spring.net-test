@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using AutoMapper;
-using SpringTest.Domain.Entities;
 using SpringTest.Domain.Services;
+using SpringTest.Web.Extensions;
 using SpringTest.Web.Models;
 
 namespace SpringTest.Web.Controllers {
@@ -19,7 +16,7 @@ namespace SpringTest.Web.Controllers {
 			this.categoryService = categoryService;
 		}
 		public ActionResult Index() {
-			var viewModelList = Mapper.Map<IEnumerable<ProductViewModel>>(productService.GetAll(includes: "Category"));
+			var viewModelList = productService.GetAll(includes: "Category").ToModelList();
 
 			return View(viewModelList);
 		}
@@ -28,7 +25,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var viewModel = Mapper.Map<ProductViewModel>(productService.Get(c => c.Id == id, includes: "Category"));
+			var viewModel = productService.Get(p => p.Id == id, includes: "Category").ToModel();
 			return View(viewModel);
 		}
 
@@ -42,7 +39,7 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] ProductViewModel viewModel) {
 			try {
 				if (ModelState.IsValid) {
-					productService.Add(Mapper.Map<Product>(viewModel));					
+					productService.Add(viewModel.ToEntity());
 					return RedirectToAction("Index");
 				}
 			} catch {
@@ -57,7 +54,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var viewModel = Mapper.Map<ProductViewModel>(productService.Get(c => c.Id == id));
+			var viewModel = productService.Get(p => p.Id == id).ToModel();
 			ViewBag.Categories = new SelectList(categoryService.GetAll(), "Id", "Name", viewModel.CategoryId);
 
 			return View(viewModel);
@@ -68,10 +65,10 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] ProductViewModel viewModel) {
 			try {
 				if (ModelState.IsValid) {
-					productService.Update(Mapper.Map<Product>(viewModel));				
+					productService.Update(viewModel.ToEntity());
 					return RedirectToAction("Index");
 				}
-			} catch (Exception ex) {
+			} catch {
 				return View();
 			}
 
@@ -83,7 +80,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var viewModel = Mapper.Map<ProductViewModel>(productService.Get(p => p.Id == id, includes: "Category"));
+			var viewModel = productService.Get(p => p.Id == id, includes: "Category").ToModel();
 
 			return View(viewModel);
 		}
@@ -92,7 +89,7 @@ namespace SpringTest.Web.Controllers {
 		[ValidateAntiForgeryToken]
 		public ActionResult Delete(int id, ProductViewModel viewModel) {
 			try {
-				productService.Delete(viewModel.Id);				
+				productService.Delete(viewModel.Id);
 				return RedirectToAction("Index");
 			} catch {
 				return View();

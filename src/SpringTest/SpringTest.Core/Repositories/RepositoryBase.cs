@@ -27,13 +27,7 @@ namespace SpringTest.Core.Repositories {
 			efContext.Set<TEntity>().Attach(entity);
 			efContext.Entry(entity).State = EntityState.Modified;
 		}
-
-		public void AddOrUpdate(TEntity entity) {
-			if (entity.Id > 0)
-				Update(entity);
-			else
-				Add(entity);
-		}
+		
 		public void Delete(int id) {
 			efContext.Set<TEntity>().Remove(efContext.Set<TEntity>().Find(id));
 		}
@@ -81,6 +75,5 @@ namespace SpringTest.Core.Repositories {
 				throw;
 			}
 		}
-
 	}
 }

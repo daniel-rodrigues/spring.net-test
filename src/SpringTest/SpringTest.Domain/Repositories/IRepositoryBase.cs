@@ -6,7 +6,6 @@ using SpringTest.Domain.Entities;
 namespace SpringTest.Domain.Repositories {
 	public interface IRepositoryBase<TEntity> where TEntity : EntityBase {
 		void Add(TEntity entity);
-		void AddOrUpdate(TEntity entity);
 		void Update(TEntity entity);
 		void Delete(int id);
 		void Delete(Expression<Func<TEntity, bool>> where);

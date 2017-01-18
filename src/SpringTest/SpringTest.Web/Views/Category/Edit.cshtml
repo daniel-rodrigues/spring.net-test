@@ -1,10 +1,10 @@
 ﻿@model SpringTest.Web.Models.CategoryViewModel
 
 @{
-  ViewBag.Title = "Edit";
+  ViewBag.Title = "Editar categoria";
 }
 
-<h2>Edit</h2>
+<h2>Editar categoria</h2>
 
 @using (Html.BeginForm()) {
 @Html.AntiForgeryToken()
@@ -12,5 +12,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Index")
 </div>

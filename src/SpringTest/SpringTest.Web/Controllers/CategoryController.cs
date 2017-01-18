@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Web.Mvc;
-using AutoMapper;
-using SpringTest.Domain.Entities;
 using SpringTest.Domain.Services;
+using SpringTest.Web.Extensions;
 using SpringTest.Web.Models;
 
 namespace SpringTest.Web.Controllers {
@@ -15,17 +12,17 @@ namespace SpringTest.Web.Controllers {
 		public CategoryController(ICategoryService categoryService) {			
 			this.categoryService = categoryService;
 		}
-		public ActionResult Index() {
-			var model = Mapper.Map<IEnumerable<CategoryViewModel>>(categoryService.GetAll());
+		public ActionResult Index() {			
+			var model = categoryService.GetAll().ToModelList();
 			return View(model);
 		}
 
 		public ActionResult Details(int id) {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-			var model = Mapper.Map<CategoryViewModel>(categoryService.Get(c => c.Id == id));
-			return View(model);
+						
+			var viewModel = categoryService.Get(p => p.Id == id).ToModel();
+			return View(viewModel);
 		}
 
 		public ActionResult Create() {
@@ -37,7 +34,7 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Create(CategoryViewModel viewModel) {
 			try {
 				if (ModelState.IsValid) {
-					categoryService.Add(Mapper.Map<Category>(viewModel));					
+					categoryService.Add(viewModel.ToEntity());					
 					return RedirectToAction("Index");
 				}
 			} catch {
@@ -51,7 +48,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var viewModel = Mapper.Map<CategoryViewModel>(categoryService.Get(c => c.Id == id));
+			var viewModel = categoryService.Get(p => p.Id == id).ToModel();
 			return View(viewModel);
 		}
 
@@ -60,7 +57,7 @@ namespace SpringTest.Web.Controllers {
 		public ActionResult Edit(int id, CategoryViewModel viewModel) {
 			try {
 				if (ModelState.IsValid) {					
-					categoryService.Update(Mapper.Map<Category>(viewModel));					
+					categoryService.Update(viewModel.ToEntity());					
 					return RedirectToAction("Index");
 				}
 			} catch {
@@ -73,7 +70,7 @@ namespace SpringTest.Web.Controllers {
 			if (id == 0)
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var viewModel = Mapper.Map<CategoryViewModel>(categoryService.Get(c => c.Id == id));
+			var viewModel = categoryService.Get(p => p.Id == id).ToModel();
 			return View(viewModel);
 		}
 
